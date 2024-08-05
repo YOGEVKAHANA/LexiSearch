@@ -2,9 +2,12 @@ from django import forms
 from .models import Document, Metadata, WordGroup, LinguisticExpression
 
 
-class DocumentUploadForm(forms.Form):
-    title = forms.CharField(max_length=255)
+class DocumentUploadForm(forms.ModelForm):
     file = forms.FileField()
+
+    class Meta:
+        model = Document
+        fields = ['file_name', 'title', 'artist', 'album', 'release_year', 'genre', 'description']
 
 
 class MetadataForm(forms.ModelForm):

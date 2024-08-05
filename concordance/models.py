@@ -3,9 +3,17 @@ from django.utils import timezone
 
 
 class Document(models.Model):
+    file_name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    content = models.TextField(default='')  # Provide a default value here
-    upload_date = models.DateTimeField(default=timezone.now)  # Provide a default value here
+    artist = models.CharField(max_length=255, null=True, blank=True)
+    album = models.CharField(max_length=255, null=True, blank=True)
+    release_year = models.IntegerField(null=True, blank=True)
+    genre = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    file_path = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
 class Metadata(models.Model):

@@ -3,7 +3,7 @@
 import os
 import sys
 import cx_Oracle
-
+cx_Oracle.init_oracle_client(r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4')
 
 def main():
     """Run administrative tasks."""
@@ -27,35 +27,35 @@ os.environ['ORACLE_HOME'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows
 # cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4")
 
 # Oracle database connection details
-host = '192.168.1.161'  # IP address of the VM
+host = '192.168.1.162'  # IP address of the VM
 port = '1521'  # Default Oracle listener port
-service_name = 'FREE'  # Service name from lsnrctl status
+service_name = 'freepdb1'  # Service name from lsnrctl status
 username = 'hr'  # Replace with your actual username
 password = 'oracle'  # Replace with your actual password
-
-# Construct the connection string
-dsn = cx_Oracle.makedsn(host, port, service_name=service_name)
-
-try:
-    # Establish the connection
-    connection = cx_Oracle.connect(user=username, password=password, dsn=dsn)
-    print("Connection successful!")
-
-    # Create a cursor
-    cursor = connection.cursor()
-
-    # Execute a sample query
-    cursor.execute("SELECT * FROM employees")
-    for row in cursor:
-        print(row)
-
-    # Close the cursor and connection
-    cursor.close()
-    connection.close()
-
-except cx_Oracle.DatabaseError as e:
-    error, = e.args
-    print(f"Error connecting to the database: {error.message}")
+#
+# # Construct the connection string
+# dsn = cx_Oracle.makedsn(host, port, service_name=service_name)
+#
+# try:
+#     # Establish the connection
+#     connection = cx_Oracle.connect(user=username, password=password, dsn=dsn)
+#     print("Connection successful!")
+#
+#     # Create a cursor
+#     cursor = connection.cursor()
+#
+#     # Execute a sample query
+#     cursor.execute("SELECT * FROM employees")
+#     for row in cursor:
+#         print(row)
+#
+#     # Close the cursor and connection
+#     cursor.close()
+#     connection.close()
+#
+# except cx_Oracle.DatabaseError as e:
+#     error, = e.args
+#     print(f"Error connecting to the database: {error.message}")
 
 if __name__ == '__main__':
     main()

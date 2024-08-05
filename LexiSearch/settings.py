@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import cx_Oracle
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,28 +57,38 @@ MIDDLEWARE = [
 # username = 'hr'  # Replace with your actual username
 # password = 'oracle'  # Replace with your actual password
 #
-os.environ['PATH'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4;' + os.environ['PATH']
-os.environ['ORACLE_HOME'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'free',
-        'USER': 'hr',
-        'PASSWORD': 'oracle',
-        'HOST': '192.168.1.161',
-        'PORT': '1521',
-    }
-}
+# os.environ['PATH'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4;' + os.environ['PATH']
+# os.environ['ORACLE_HOME'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4'
 #
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.oracle',
-#         'NAME': 'freepdb1',  # This is the correct service name
+#         'NAME': 'freepdb1',
 #         'USER': 'hr',
 #         'PASSWORD': 'oracle',
-#         'HOST': '192.168.1.161',  # IP address of the Oracle database server
-#         'PORT': '1521',  # Default port for Oracle databases
+#         'HOST': '192.168.1.163',
+#         'PORT': '1523',
+#     }
+# }
+#
+# dsn = cx_Oracle.makedsn('192.168.1.162', '1521', service_name='freepdb1')
+# dsn = cx_Oracle.makedsn('192.168.1.162', '1521', service_name='freepdb1')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': cx_Oracle.makedsn('192.168.1.162', '1521', service_name='freepdb1'),
+        'USER': 'hr',
+        'PASSWORD': 'oracle',
+    }
+}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.oracle',
+#         'NAME': dsn,  # This is the correct service name
+#         'USER': 'hr',
+#         'PASSWORD': 'oracle',
+#         'HOST': '',  # IP address of the Oracle database server
+#         'PORT': '',  # Default port for Oracle databases
 #     }
 # }
 
@@ -132,9 +143,12 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

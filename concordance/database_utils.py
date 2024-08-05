@@ -1,19 +1,11 @@
-import cx_Oracle
 from django.conf import settings
-import os
-
-os.environ['PATH'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4;' + \
-                     os.environ['PATH']
-os.environ['ORACLE_HOME'] = r'C:\Users\sapirg\Oracle\instantclient-basic-windows.x64-23.4.0.24.05\instantclient_23_4'
+import cx_Oracle
 
 
 def get_oracle_connection():
-    # Construct the connection string
-    dsn = cx_Oracle.makedsn(
-        settings.DATABASES['default']['HOST'],
-        settings.DATABASES['default']['PORT'],
-        service_name=settings.DATABASES['default']['NAME']
-    )
+    # Use the DSN directly from the settings
+    dsn = settings.DATABASES['default']['NAME']
+
     # Establish the connection
     connection = cx_Oracle.connect(
         user=settings.DATABASES['default']['USER'],

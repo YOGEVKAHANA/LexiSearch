@@ -1,0 +1,64 @@
+{% extends "concordance/base.html" %}
+
+{% block title %}LexiSearch - Concordance and Text Retrieval System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="text-center mb-4">Welcome to LexiSearch</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">About LexiSearch</h2>
+                <p class="card-text">
+                    LexiSearch is a powerful concordance and text retrieval system designed to help you analyze and explore textual data. Our system allows you to upload documents, search for specific words or phrases, and gain insights into the context and usage of language within your texts.
+                </p>
+            </div>
+        </div>
+
+        <h3 class="mb-3">Key Features</h3>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Document Management</h5>
+                        <p class="card-text">Upload, view, and manage your text documents with ease.</p>
+                        <a href="{% url 'document_list' %}" class="btn btn-primary">View Documents</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Word Search</h5>
+                        <p class="card-text">Search for specific words and see their context within documents.</p>
+                        <a href="#" class="btn btn-primary">Search Words</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Word Groups</h5>
+                        <p class="card-text">Create and manage groups of related words for analysis.</p>
+                        <a href="#" class="btn btn-primary">Manage Word Groups</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Statistics</h5>
+                        <p class="card-text">View statistics and insights about your documents and word usage.</p>
+                        <a href="#" class="btn btn-primary">View Statistics</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'document_list' %}" class="btn btn-lg btn-primary">Get Started</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
