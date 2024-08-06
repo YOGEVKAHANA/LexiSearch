@@ -14,6 +14,10 @@ from .models import Document
 from .database_utils import execute_sql
 from django.conf import settings
 import os
+from django.shortcuts import render
+from .forms import DocumentSearchForm
+from .models import Document
+from django.db.models import Q
 
 def upload_document(request):
     if request.method == 'POST':
@@ -54,6 +58,33 @@ def upload_document(request):
     else:
         form = DocumentUploadForm()
     return render(request, 'concordance/upload_document.html', {'form': form})
+
+
+def search_documents(request):
+    form = DocumentSearchForm(request.GET or None)
+    documents = Document.objects.none()  # Initialize with an empty queryset
+
+    if request.GET and form.is_valid():
+        query = Q()
+        if form.cleaned_data.get('query'):
+            query &= Q(content__icontains=form.cleaned_data.get('query'))
+        if form.cleaned_data.get('title'):
+            query &= Q(title__icontains=form.cleaned_data.get('title'))
+        if form.cleaned_data.get('artist'):
+            query &= Q(artist__icontains=form.cleaned_data.get('artist'))
+        if form.cleaned_data.get('album'):
+            query &= Q(album__icontains=form.cleaned_data.get('album'))
+        if form.cleaned_data.get('release_year'):
+            query &= Q(release_year=form.cleaned_data.get('release_year'))
+        if form.cleaned_data.get('genre'):
+            query &= Q(genre__icontains=form.cleaned_data.get('genre'))
+        if form.cleaned_data.get('description'):
+            query &= Q(description__icontains=form.cleaned_data.get('description'))
+
+        documents = Document.objects.filter(query)
+
+    return render(request, 'concordance/search_results.html', {'form': form, 'documents': documents})
+
 
 """
 def upload_document(request):

@@ -3,6 +3,7 @@ from django.utils import timezone
 
 
 class Document(models.Model):
+    document_id = models.AutoField(primary_key=True)
     file_name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     artist = models.CharField(max_length=255, null=True, blank=True)
@@ -11,6 +12,9 @@ class Document(models.Model):
     genre = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     file_path = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'DOCUMENTS'
 
     def __str__(self):
         return self.title

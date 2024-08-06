@@ -1,0 +1,30 @@
+{% extends 'concordance/base.html' %}
+
+{% block title %}Search Documents{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Documents</h2>
+    <form method="get" action="{% url 'search_documents' %}">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <hr>
+    <h3>Search Results</h3>
+    <ul>
+        {% for document in documents %}
+            <li>
+                <h4>{{ document.title }}</h4>
+                <p>{{ document.description }}</p>
+                <p>Artist: {{ document.artist }}</p>
+                <p>Album: {{ document.album }}</p>
+                <p>Release Year: {{ document.release_year }}</p>
+                <p>Genre: {{ document.genre }}</p>
+                <p>File Path: {{ document.file_path }}</p>
+            </li>
+        {% empty %}
+            <li>No documents found</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
